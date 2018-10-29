@@ -94,7 +94,7 @@ def create_word_bigram_scores():
 
     pos = posWords + posBigrams  # 词和双词搭配
     neg = negWords + negBigrams
-
+    print(posBigrams)
     word_fd = FreqDist()
     cond_word_fd = ConditionalFreqDist()
     for word in pos:
@@ -390,8 +390,8 @@ def use_the_best():
     word_scores = create_word_bigram_scores()  # 使用词和双词搭配作为特征
     best_words = find_best_words(word_scores, 4000)  # 特征维度1500
     load_data()
-    posFeatures = pos_features(best_word_features, best_words)
-    negFeatures = neg_features(best_word_features, best_words)
+    posFeatures = pos_features(best_word_features)
+    negFeatures = neg_features(best_word_features)
     cut_data(posFeatures, negFeatures)
     trainSet = posFeatures[1500:] + negFeatures[1500:]  # 使用了更多数据
     testSet = posFeatures[:500] + negFeatures[:500]
@@ -430,7 +430,7 @@ def store_classifier():
 def transfer_text_to_moto():
 
     moto = pickle.load(open('../pkl_data/test/test_review.pkl', 'rb'))  # 载入文本数据
-
+    print(moto)
     def extract_features(data):
         feat = []
         for i in data:
